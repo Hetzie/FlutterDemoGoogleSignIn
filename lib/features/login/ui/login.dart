@@ -1,5 +1,6 @@
 import 'package:demo_google_sign_in/components/my_button.dart';
 import 'package:demo_google_sign_in/components/my_textfeild.dart';
+import 'package:demo_google_sign_in/features/login/api/google_signin_api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,7 +13,9 @@ class Login extends StatelessWidget {
   final passwordController = TextEditingController();
 
   //sign user method
-  void signInUser() {}
+  void signInUser() {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,5 +121,8 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future signIn() async {
+    await GoogleSignInApi.login();
   }
 }

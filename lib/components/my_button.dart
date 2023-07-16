@@ -10,7 +10,7 @@ class MyButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.maxFinite,
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.all(18),
         margin: EdgeInsets.all(24),
         decoration: BoxDecoration(
             color: Colors.blueGrey.shade900,
@@ -18,7 +18,7 @@ class MyButton extends StatelessWidget {
         child: Center(
             child: Text(
           'Log In',
-          style: TextStyle(color: Colors.blueGrey.shade50),
+          style: TextStyle(color: Colors.blueGrey.shade50, fontWeight: FontWeight.bold, fontSize: 24),
         )),
       ),
     );
