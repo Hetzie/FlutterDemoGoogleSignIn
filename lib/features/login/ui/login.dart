@@ -1,12 +1,11 @@
 import 'package:demo_google_sign_in/components/my_button.dart';
 import 'package:demo_google_sign_in/components/my_textfeild.dart';
+import 'package:demo_google_sign_in/features/home/ui/home.dart';
 import 'package:demo_google_sign_in/features/login/api/google_signin_api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class Login extends StatelessWidget {
-
   Login({super.key});
 
   //text editing controller
@@ -16,8 +15,15 @@ class Login extends StatelessWidget {
   //sign user method
   void signInUser() {}
 
-  Future googleSignIn() async {
-    await GoogleSignInApi.login();
+  Future googleSignIn(BuildContext context) async {
+    final user = await GoogleSignInApi.login();
+    if (user == null) {
+      print("user --> null");
+    } else {
+      print("user --> $user");
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HomePage(user: user)));
+    }
   }
 
   @override
@@ -45,7 +51,6 @@ class Login extends StatelessWidget {
                 ),
                 const SizedBox(height: 25),
 
-
                 //  email
                 MyTextField(
                   controller: emailController,
@@ -53,14 +58,12 @@ class Login extends StatelessWidget {
                   obscureText: false,
                 ),
 
-
                 //  password
                 MyTextField(
                   controller: passwordController,
                   hintText: "Enter password",
                   obscureText: true,
                 ),
-
 
                 //  forgot pass
                 const Padding(
@@ -74,9 +77,10 @@ class Login extends StatelessWidget {
 
                 //  login button
                 MyButton(
+                  width: null,
+                  text: "Log In",
                   onTap: signInUser,
                 ),
-
 
                 // or continue with text
                 const Padding(
@@ -90,19 +94,21 @@ class Login extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 25,),
-
+                SizedBox(
+                  height: 25,
+                ),
 
                 //  google sign in option
                 GestureDetector(
-                  onTap: googleSignIn,
+                  onTap: () {
+                    googleSignIn(context);
+                  },
                   child: Container(
                     height: 64,
                     width: 64,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.blueGrey.shade200
-                    ),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.blueGrey.shade200),
                     child: Image.asset(
                       'images/ic_google.png',
                       height: 20,
@@ -112,12 +118,21 @@ class Login extends StatelessWidget {
                 SizedBox(height: 80),
 
                 //  register redirect text
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?"),
-                    SizedBox(width: 4,),
-                    Text("Register Now", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                    const Text("Don't have an account?"),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        "Register Now",
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 )
               ],
