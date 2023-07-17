@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Login extends StatelessWidget {
+
   Login({super.key});
 
   //text editing controller
@@ -13,8 +14,10 @@ class Login extends StatelessWidget {
   final passwordController = TextEditingController();
 
   //sign user method
-  void signInUser() {
+  void signInUser() {}
 
+  Future googleSignIn() async {
+    await GoogleSignInApi.login();
   }
 
   @override
@@ -90,18 +93,20 @@ class Login extends StatelessWidget {
                 SizedBox(height: 25,),
 
 
-
                 //  google sign in option
-                Container(
-                  height: 64,
-                  width: 64,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.blueGrey.shade200
-                  ),
-                  child: Image.asset(
-                    'images/ic_google.png',
-                    height: 20,
+                GestureDetector(
+                  onTap: googleSignIn,
+                  child: Container(
+                    height: 64,
+                    width: 64,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.blueGrey.shade200
+                    ),
+                    child: Image.asset(
+                      'images/ic_google.png',
+                      height: 20,
+                    ),
                   ),
                 ),
                 SizedBox(height: 80),
@@ -121,8 +126,5 @@ class Login extends StatelessWidget {
         ),
       ),
     );
-  }
-  Future signIn() async {
-    await GoogleSignInApi.login();
   }
 }
